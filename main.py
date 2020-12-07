@@ -4,10 +4,12 @@ import re, requests, sys
 import urllib3
 import os 
 from os import path
+
 urllib3.disable_warnings()
 s = requests.Session()
 PLUGINS = 'plugins'
 import subprocess
+
 
 ####
 def basic_rfi_params2(f):
@@ -54,8 +56,7 @@ def basic_rfi_params2(f):
             if found_declar:
               print '+ Found declaration of parameter: %s:\n%s' % ( found_declar.group(3), line )
 
-        print '='*100
-        print '='*100
+        print '='*80
 
 
 ####
@@ -77,7 +78,7 @@ def basic_rfi_params(f):
 
       if found:
         param = found.group(2)
-        print '=*'*100
+        print '='*80
         print 'Found function: %s with param %s in file %s (line: %s)\n%s' % ( function, str(param), f, line_num, line)
 
         # now we'll look for param declaration with one of the methods
@@ -94,7 +95,7 @@ def basic_rfi_params(f):
               print 'Found param declaration at line %s: %s:\n%s' % (line_num, param, line )
               print ''
 
-        print "*="*100
+        print "="*80
 
 
 ####
@@ -124,7 +125,8 @@ def basic_rfi_methods(f):
 
             print '[+] ==> Reading %s' % (f) # current file name
             print '[+] Found LFI/RFI bug: %s, %s (param: %s ):\n\t%s' % (f, line_num, param, line)
-
+            print ""
+            print "="*80
 
 
 
@@ -292,10 +294,10 @@ def main():
 
 
 ####
-def analyse(temp_path = "./plugins/"):
-  print "======================="
+def analyse(temp_path = "./plugins/", level = "1"):
+  print "="*80
   print "  Let's find something intresting in: %s" % ( temp_path ) 
-  print "----------------------"
+  print "="*80
 
   files = []
 
@@ -306,25 +308,52 @@ def analyse(temp_path = "./plugins/"):
 		#print(file)
 	    files.append(os.path.join(r, file))
 
-  for f in files:
-	basic_rfi_methods(f)      # find GET with include*,etc...
-	basic_rfi_params(f)       # last edit: 23.10.2020 @ 14:18 
-	basic_rfi_params2(f)
-	basic_sqli_methods(f)     # basic sqli (method + wp->query)
+  try:
+    for f in files:
+      if level == "1":
+        basic_rfi_methods(f)      # find GET with include*,etc...
+        basic_rfi_params(f)       # last edit: 23.10.2020 @ 14:18 
+        basic_rfi_params2(f)
+        basic_sqli_methods(f)     # basic sqli (method + wp->query)
+      
+      if level == "2": 
+        basic_rfi_params2(f)
+        basic_sqli_methods(f)     # basic sqli (method + wp->query)
+
+      if level == "3": # sqli only
+        basic_sqli_methods(f)     # basic sqli (method + wp->query)
+
+  except Exception as e:
+    print "#"*80
+    print('Whoops! Analysis exception: ' + e.message)
+    print "#"*80
+    pass
+  finally:
+    pass
 
 
 
 if __name__ == '__main__':
-  module =  sys.argv[1] if len(sys.argv) > 1 else ""
 
-  if module == 'analyse':
-	pluginDir =  sys.argv[2] if len(sys.argv) > 2 else ""
+  try:
+    module =  sys.argv[1] if len(sys.argv) > 1 else ""
+    level =  sys.argv[3] if len(sys.argv) == 4 else ""
+    
+    if module == 'analyse':
+	  pluginDir =  sys.argv[2] if len(sys.argv) > 2 else ""
 
-	if pluginDir:
-		analyse(pluginDir)
-		exit(0)
+	  if pluginDir:
+		  analyse(pluginDir, level)
+		  exit(0)
 
-	analyse()
-	exit(0)
+	  analyse()
+	  exit(0)
 
-  main()
+    main()
+
+  except Exception as e:
+    print "#"*80
+    print('Whoops! Main exception: ' + e.message)
+    print "#"*80
+    pass
+
