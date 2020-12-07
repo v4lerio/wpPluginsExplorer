@@ -44,6 +44,6 @@ Enjoy!
 
 ### Pull Requests (PR)
 
-Feel free to submit PRs and let us know if you find 
+Feel free to submit PRs and let us know if you find intresting stuff or get some kudos/$$ using this tool :D 
 
 Thank you
