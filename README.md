@@ -1,15 +1,15 @@
-# wpPluginsExplorer ![version](https://img.shields.io/badge/version-0.1-blue)
+ # wpPluginsExplorer
+<p align="center">
+![version](https://img.shields.io/badge/version-0.1-blue) ![python](https://img.shields.io/badge/python-2.7-yellow)
+![license](https://img.shields.io/badge/license-MIT-green)
+</p>
+<hr>
 
 Contact: [v4lerio](https://twitter.com/valeriocestrone)
 
-This is a "quick&dirty mass-scanner for Wordpress" Plugins
-
-It is a "fork" of the improved version of `wordpricy.py` initially made by [CodySixteen](https://twitter.com/CodySixteen) on its Notes Magazine 01 the 20th Oct 2020
-
-Code was in the README section encoded in base64.
+This is a "quick&dirty mass-scanner for Wordpress" Plugins. It is a "fork" of the improved version of `wordpricy.py` initially made by [CodySixteen](https://twitter.com/CodySixteen) on its Notes Magazine 01 the 20th Oct 2020. Code was in the README section encoded in base64.
 
 Enjoy!
-
 ## Usage
 
 ### Download first 50 pages of WP popular plugins
@@ -41,6 +41,8 @@ Enjoy!
 - [ ] Color coded output
 - [ ] Stats/Summary only (no list of issues)
 - [ ] Refactor code and comments
+- [ ] Convert to Python3
+- [ ] Improve regex and class identification
 
 ### Pull Requests (PR)
 
