@@ -1,10 +1,9 @@
  # wpPluginsExplorer
-<p align="center">
+ 
 ![version](https://img.shields.io/badge/version-0.1-blue)
 ![python](https://img.shields.io/badge/python-2.7-yellow)
 ![license](https://img.shields.io/badge/license-MIT-green)
-</p>
-<hr>
+
 
 Contact: [v4lerio](https://twitter.com/valeriocestrone)
 
